@@ -1,0 +1,50 @@
+{
+    "name": "@rwlaschin/priority-scheduler",
+    "version": "0.1.0",
+    "description": "Full Stack Interview for Luma Health",
+    "main": "index.js",
+    "engines": {
+        "node": ">=10.14.2"
+    },
+    "scripts": {
+        "test": "nyc mocha --recursive ./test",
+        "start": "node src/index.js",
+        "start:dev": "nodemon --watch src src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lumahealthhq/full-stack-interview.git"
+    },
+    "keywords": [
+        "patient",
+        "scheduling"
+    ],
+    "author": "robert.wlaschin@gmail.com",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/lumahealthhq/full-stack-interview/issues"
+    },
+    "homepage": "https://github.com/lumahealthhq/full-stack-interview#readme",
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-almost": "^1.0.1",
+        "chai-arrays": "^2.0.0",
+        "faker": "^4.1.0",
+        "mocha": "^5.2.0",
+        "mockery": "^2.1.0",
+        "nodemon": "^1.18.9",
+        "nyc": "^13.1.0",
+        "sinon": "^7.2.2",
+        "sinon-chai": "^3.3.0"
+    },
+    "dependencies": {
+        "env": "0.0.2",
+        "fastify": "^1.13.2",
+        "fastify-cors": "^0.2.0",
+        "fastpriorityqueue": "^0.6.1",
+        "require-all": "^3.0.0"
+    },
+    "directories": {
+        "test": "test"
+    }
+}
