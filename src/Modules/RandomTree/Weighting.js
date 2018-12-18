@@ -7,9 +7,18 @@ const maxLatitude = 170,
 const maxLongitude = 360,
     midLongitude = maxLongitude / 2;
 
+/**
+ * Utility library, handles all calculations for determing weights from user data
+ * All functions return a number between 0->1
+ */
 module.exports = {
     /**
-     *
+     * Calculates distance from target position, while accounting for wrap around
+     * and returns a weighted value
+     * Only uses squares to reduce math overhead
+     * @param {*} data { location { latitude, longitude }}
+     * @param {*} pos  { latitude, longitude }
+     * @param {*} criteria { maxDistanceSquared }
      */
     Distance: function(data, pos, criteria) {
         let dx = Math.abs(data.location.latitude - pos.latitude),
@@ -28,7 +37,9 @@ module.exports = {
         return weightDistance;
     },
     /**
-     *
+     * Calculates Age weighting
+     * @param {*} data { age }
+     * @param {*} criteria  { desiredAge }
      */
     Age: function(data, criteria) {
         // number should be 1 when Age is equal to desiredAge
@@ -38,7 +49,8 @@ module.exports = {
         return weightAge;
     },
     /**
-     *
+     * Calculates Accepted offer weighting
+     * @param {*} data {  acceptedOffers, canceledOffers }
      */
     AcceptedOffers: function(data) {
         // If the patient is active and reliable scale to 1
@@ -46,7 +58,9 @@ module.exports = {
         return weightAccepted;
     },
     /**
-     *
+     * Calculates Canceled offer weighting, scales to reduce the effect as canceled offers
+     * grows larger than Accepted offer
+     * @param {*} data { acceptedOffers, canceledOffers }
      */
     CanceledOffers: function(data) {
         // If the patient is unreliable scale the number to 0
@@ -58,7 +72,9 @@ module.exports = {
         return weightCanceled;
     },
     /**
-     *
+     * Calculates Reply Time weighting
+     * @param {*} data { averageReplyTime }
+     * @param {*} data { desiredReplyTime }
      */
     ReplyTime: function(data, criteria) {
         // The closer to desiredReply time the average reply time is the closer to 1

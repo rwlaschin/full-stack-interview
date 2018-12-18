@@ -11,11 +11,6 @@ describe("RandomForest", function() {
     before(function() {});
     afterEach(function() {});
     after(function() {});
-    context("Initialization", function() {
-        it("should export a function", function() {
-            expect(ModuleClass).to.be.a("function");
-        });
-    });
     context("forEach", function() {
         before(function() {
             Module.trees = [1, 2, 3, 4];

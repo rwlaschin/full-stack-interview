@@ -8,23 +8,6 @@ chai.use(require("chai-arrays"));
 const Module = require("../../../src/Modules/DataStore");
 
 describe("DataStore", function() {
-    context("Initialization", function() {
-        it("should export function", function() {
-            expect(Module).to.be.an("object");
-        });
-        it("should export generate", function() {
-            expect(Module.generate).to.be.a("function");
-        });
-        it("should export get", function() {
-            expect(Module.get).to.be.a("function");
-        });
-        it("should export set", function() {
-            expect(Module.set).to.be.a("function");
-        });
-        it("should export fixUp", function() {
-            expect(Module.fixUp).to.be.a("function");
-        });
-    });
     context("Generate", function() {
         before(function() {
             Module.fixUp = sinon.stub(Module, "fixUp");
@@ -73,11 +56,15 @@ describe("DataStore", function() {
             Module.fixUp();
             expect(Module.patientData).to.eql([{ location: { latitude: 1.1, longitude: 2.2 } }]);
         });
-        it("should should not error with empty array", function() {
+        it("should not error with empty array", function() {
             Module.patientData = [];
             expect(function() {
                 Module.fixUp();
             }).to.not.throw();
         });
+    });
+    context("Update", function() {
+        it("should update data using name");
+        it("should update data using id");
     });
 });

@@ -4,19 +4,29 @@ function DataStore() {}
 
 DataStore.prototype.patientData = undefined;
 
+/**
+ * Creates and normalizes patient data
+ */
 DataStore.prototype.generate = function() {
     // after done call fixup
     this.fixUp();
 };
 
+/**
+ * Returns raw patient data
+ */
 DataStore.prototype.get = function() {
     return (
-        this.patientData || _patientData ||
+        this.patientData ||
+        _patientData ||
         /* istanbul ignore next */
         []
     );
 };
 
+/**
+ * Normalizes user data
+ */
 DataStore.prototype.fixUp = function() {
     this.get().forEach(function(item) {
         item.location.latitude = parseFloat(item.location.latitude);
@@ -24,6 +34,24 @@ DataStore.prototype.fixUp = function() {
     });
 };
 
+/**
+ * Updates patches partial data
+ * @param {String} type [name|id] method for lookup
+ * @param {*} value data to be updated
+ */
+DataStore.prototype.update = function(type, value) {
+    switch (type) {
+        case "name":
+            /* TODO: Finish */ return;
+        case "id":
+            /* TODO: Finish */ return;
+    }
+};
+
+/**
+ * Changes patient data set (testing)
+ * @param {*} data new data
+ */
 DataStore.prototype.set = function(data) {
     this.patientData = data;
 };

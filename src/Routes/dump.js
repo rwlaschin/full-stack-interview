@@ -8,7 +8,10 @@ var schema = {
     },
 };
 
-module.exports = function Available(fastify, opts) {
+/**
+ * Dumps out storage data for inspection
+ */
+module.exports = function Dump(fastify, opts) {
     fastify.get("/dump", { schema }, (req, res) => {
         switch (req.query.storage) {
             case "patients":

@@ -13,7 +13,6 @@ PriorityScheduler.prototype.get = async function(location, count) {
     try {
         return await Processor.retrieve(location, count);
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };
@@ -23,9 +22,8 @@ PriorityScheduler.prototype.get = async function(location, count) {
  */
 PriorityScheduler.prototype.load = async function() {
     try {
-        return await Processor.compute();
+        await Processor.compute();
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };
@@ -37,7 +35,6 @@ PriorityScheduler.prototype.updateByName = async function(name) {
     try {
         return await DataStore.update("name", name);
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };
@@ -49,7 +46,6 @@ PriorityScheduler.prototype.updateById = async function(id) {
     try {
         return await DataStore.update("id", id);
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };

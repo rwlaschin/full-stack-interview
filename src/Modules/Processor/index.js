@@ -17,7 +17,9 @@ var defaultRandomForestCount = process.env.DEFAULT_RANDOM_FOREST_COUNT || 30;
 function Processor() {}
 
 /**
- *
+ * Sets modules to be used by Processors, aids in unit testing
+ * @param {String} module Module Name to be set [RandomForest|RandomTree|Decision|DataStore]
+ * @param {*} obj Module Class or Function
  */
 Processor.prototype.set = function(module, obj) {
     switch (module) {
@@ -37,7 +39,9 @@ Processor.prototype.set = function(module, obj) {
 };
 
 /**
- *
+ * Gets modules used by Processors, aids in unit testing
+ * @param {String} module Module Name to be set [RandomForest]
+ * @returns {*} Module Object.
  */
 Processor.prototype.get = function(module) {
     switch (module) {
@@ -47,7 +51,9 @@ Processor.prototype.get = function(module) {
 };
 
 /**
- *
+ * Gets patients that are most likely to respond to an appointment request
+ * @param {*} location {longitude, latitude}
+ * @param {*} count optional number of results to learn
  */
 Processor.prototype.retrieve = function(location, count = 10) {
     /* istanbul ignore next */
@@ -69,7 +75,8 @@ Processor.prototype.retrieve = function(location, count = 10) {
 };
 
 /**
- *
+ * Build datasets
+ * @param {*} count optional number of randomized data sets to create
  */
 Processor.prototype.compute = function(count = 10) {
     /* istanbul ignore next */

@@ -20,15 +20,6 @@ describe("Decision", function() {
     after(function() {
         Math.random.restore();
     });
-    context("Initialization", function() {
-        before(function() {
-            Module = new ModuleClass(criteria);
-            Math.random.returns(0);
-        });
-        it("should export a function", function() {
-            expect(ModuleClass).to.be.a("function");
-        });
-    });
     context("Calculate", function() {
         var pos, data;
         before(function() {
@@ -69,7 +60,7 @@ describe("Decision", function() {
             };
             Math.random.returns(1);
             var ret = Module.calculate(data, pos);
-            expect(ret).to.be.almost.greaterThan(.8);
+            expect(ret).to.be.almost.greaterThan(0.8);
         });
         it("should use calculated value when not overriding", function() {
             pos = { latitude: 0, longitude: 0 };

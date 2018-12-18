@@ -27,17 +27,6 @@ describe("Processor", function() {
         Mocks.RandomForest.prototype.insert.resetHistory();
         Mocks.DataStore.get.resetHistory();
     });
-    context("Initialization", function() {
-        it("should export object", function() {
-            expect(Module).to.be.an("object");
-        });
-        it("should export retrieve", function() {
-            expect(Module.retrieve).to.be.a("function");
-        });
-        it("should export compute", function() {
-            expect(Module.compute).to.be.a("function");
-        });
-    });
     context("Retrieve", function() {
         it("should return 10 results", function() {
             var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(val => ({ id: val }));

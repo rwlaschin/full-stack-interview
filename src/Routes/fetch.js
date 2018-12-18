@@ -4,10 +4,16 @@ var schema = {
     querystring: {
         location: { type: "string", pattern: "^(-?\\d+.?\\d*),(-?\\d+.?\\d*)$" },
         count: { type: "number", min: 10, max: 100 },
+        format: { type: "string", pattern: "^(json|csv|html)$" }, // html is default
     },
     required: ["location"],
 };
 
+/**
+ * Convert query string to location format
+ * @param {String} input comma delimited string
+ * @returns {*} long/lat object
+ */
 function queryToLocation(input) {
     if (!input || typeof input !== "string") {
         return;
@@ -20,9 +26,12 @@ function queryToLocation(input) {
     };
 }
 
+/**
+ * Dumps out storage data for inspection
+ */
 module.exports = function Fetch(fastify, opts) {
     fastify.get("/fetch", { schema }, (req, res) => {
-        let format = req.query.format || "json";
+        let format = req.query.format || "html";
         PrioritySchedule.get(
             queryToLocation(req.query.location),
             req.query.count ? parseInt(req.query.count) : undefined,

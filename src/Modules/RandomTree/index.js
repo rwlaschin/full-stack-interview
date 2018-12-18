@@ -1,17 +1,17 @@
 const Node = require("./Node");
 
+/**
+ * RandomTree
+ * @param {Decision} decision object
+ */
 module.exports = function RandomTree(decision) {
-    // decision is an object with 3 functions
-    // test (Node,Data) returns -1,1,0 (left, right, equal)
-    // fuzzy (Node,Data) returns -1,1,0 (left, right, equal)
-    // seed () generates seeds for change fuzzy logic
-    // weight, return the previously calculated weight before clamping
-
-    this.decision = decision;
-    var base, weight;
+    this.decision = decision; // Decision class object
+    var base;
 
     /**
-     *
+     * Sets the root value or inspects, for testing
+     * @param {Node} root fully created Node hierarchy
+     * @returns {Node} current root node
      */
     this.root = function(root) {
         if (root) {
@@ -19,8 +19,10 @@ module.exports = function RandomTree(decision) {
         }
         return base;
     };
+
     /**
-     *
+     * Add data into the tree, calculates a weight based on existing data and places accordingly
+     * @parameter {*} data
      */
     this.insert = function(data) {
         if (!base) {
@@ -50,15 +52,21 @@ module.exports = function RandomTree(decision) {
             stack[i].height += height;
         }
     };
+
     /**
-     *
+     * Based on a criteria locates a close match
+     * @param {*} criteria, should be compatible with Decision object
+     * @returns {*} data
      */
     this.find = function(criteria) {
         var node = this.findNode(criteria);
         return node.data;
     };
+
     /**
-     *
+     * Based on a criteria locates a close match
+     * @param {*} criteria, should be compatible with Decision object
+     * @returns {*} node
      */
     this.findNode = function(criteria) {
         this.decision.seed();
@@ -83,95 +91,20 @@ module.exports = function RandomTree(decision) {
             current = current[direction];
         }
     };
+
     /**
-     * Balance the entire tree
-     */
-    this.balance = function() {
-        // find branches that are not balanced and rebalance
-        throw new Error("Not implemented yet");
-    };
-    /**
-     * Balance a single node, this will balance the tree over time
-     */
-    this.balanceSingle = function() {
-        function findLast(node, direction, parent) {
-            while (node[direction]) {
-                parent = node;
-                node = node[direction];
-            }
-            parent[direction] = undefined;
-            return node;
-        }
-
-        var current = base,
-            stack = [],
-            direction = 0;
-        // find a node that is +2,+1
-        // balance and correct count
-        while (current) {
-            direction = current.height.left - current.height.right;
-            if (Math.abs(direction) > 1) {
-                break;
-            }
-            stack.push(current);
-            if (current.height.left > current.height.right) {
-                current = current.left;
-            } else {
-                current = current.right;
-            }
-        }
-        /*
-                    8           7
-                 4    9      4     8
-               3   6       3   6      9
-              1 2 5 7     1 2 5
-*/
-
-        /*
-                    8         7      8       7   8
-                 4    9      5      4 9     5      6
-               3   7               3       4
-              1   5               1       3
-                                         1
-              */
-
-        function moveChildBranches(current, child, direction) {
-            if (child[direction] === current) {
-                // skip if the two nodes are the same
-                child = child[direction];
-            }
-            while (current[direction]) {
-                // find the last node in direction
-                current = current[diretion];
-            }
-            // move
-            current[direction] = child[direction];
-        }
-
-        if (current) {
-            (direction = direction < 0 ? "left" : "right"), (counter = direction > 0 ? "left" : "right");
-            var node = findLast(current[direction < 0 ? "left" : "right"], counter, current);
-            moveChildBranches(node, current, direction);
-            node[counter] = current; // root becomes child
-            current[direction] = undefined; // clear the root leaves
-            if (current == base) {
-                // assign the new node to the parent
-                base = node;
-            } else {
-                stack[stack.length - 1][counter] = node;
-            }
-        }
-
-        // recalculate heights
-    };
-    /**
-     *
+     * Walks tree in order
+     * @param {Node} node, starting point or undefined for root
+     * @returns {*} array of item data
      */
     this.traverseInOrder = function(node = base) {
         return this.traverseInOrderAsNode(node).map(item => item.data);
     };
+
     /**
-     *
+     * Walks tree in order
+     * @param {Node} node, starting point or undefined for root
+     * @returns {*} array of nodes
      */
     this.traverseInOrderAsNode = function(node = base) {
         var results = [];
@@ -186,10 +119,9 @@ module.exports = function RandomTree(decision) {
         return results;
     };
     /**
-     *
+     * Sets object back to initial state, for debugging
      */
     this.reset = function() {
         base = undefined;
-        weight = undefined;
     };
 };

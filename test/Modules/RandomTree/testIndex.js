@@ -21,26 +21,6 @@ describe("RandomTree", function() {
         DecisionClass.prototype.compare.resetHistory();
         Module.reset();
     });
-    context("Initialization", function() {
-        it("should export class", function() {
-            expect(ModuleClass).to.be.a("function");
-        });
-        it("should export insert", function() {
-            expect(Module.insert).to.be.a("function");
-        });
-        it("should export find", function() {
-            expect(Module.find).to.be.a("function");
-        });
-        it("should export balance", function() {
-            expect(Module.balance).to.be.a("function");
-        });
-        it("should export traverseInOrder", function() {
-            expect(Module.traverseInOrder).to.be.a("function");
-        });
-        it("should export findNode", function() {
-            expect(Module.findNode).to.be.a("function");
-        });
-    });
     context("Traverse In Order", function() {
         it("should return empty when initialized", function() {
             var results = Module.traverseInOrder();
@@ -250,23 +230,6 @@ describe("RandomTree", function() {
                 ret = Module.findNode(2);
             }).to.not.throw("Unexpected call");
             expect(ret.data).to.equal(2);
-        });
-    });
-    context("Balance", function() {
-        it("should rebalance left");
-        it("should rebalance right");
-        it("should rebalance middle");
-    });
-    context("Balance Single Node", function() {
-        it("should balance a node", function() {
-            var base = new Node(1);
-            base.left = new Node(2);
-            base.l = new Node(3);
-            Module.root(base);
-
-            console.error(Module.traverseInOrder());
-            Module.balanceSingle();
-            console.error(Module.traverseInOrder());
         });
     });
 });

@@ -8,26 +8,6 @@ chai.use(require("chai-almost")(0.01));
 const Module = require("../../../src/Modules/RandomTree/Weighting");
 
 describe("Weighting", function() {
-    context("Initialization", function() {
-        it("should export object", function() {
-            expect(Module).to.be.an("object");
-        });
-        it("should expose Distance", function() {
-            expect(Module.Distance).to.be.a("function");
-        });
-        it("should expose Age", function() {
-            expect(Module.Age).to.be.a("function");
-        });
-        it("should expose AcceptedOffers", function() {
-            expect(Module.AcceptedOffers).to.be.a("function");
-        });
-        it("should expose CanceledOffers", function() {
-            expect(Module.CanceledOffers).to.be.a("function");
-        });
-        it("should expose ReplyTime", function() {
-            expect(Module.ReplyTime).to.be.a("function");
-        });
-    });
     context("Distance", function() {
         it("should not be invalid when data is zero", function() {
             var data = { location: { latitude: 0, longitude: 0 } },
